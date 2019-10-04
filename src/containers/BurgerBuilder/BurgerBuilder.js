@@ -3,7 +3,7 @@ import Aux from '../../hoc/AAux/AAux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../..//components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
-import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Axios from '../../axios.orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
@@ -90,30 +90,12 @@ this.updatePurchaseState(updatedIngredients);
     purchaseCancelHandler=()=> {
         this.setState({purchasing :false});
     }
-    purchaseContinueHandler=()=> {
-        //alert('Continue?');
-        // this.setState({loading :true});
-        // const order={
-        //     ingredients: this.state.ingredients,
-        //     price: this.state.totalPrice,
-        //     customer:{
-        //         name:'Bharath Chandra',
-        //         address:{
-        //                 street: '123 Main st',
-        //                 zipcode:'97006',
-        //                 country:'USA'
-        //         },
-        //         email: 'test@test.com'
-        //     },
-        //     deliveryMethod: 'fastest'
-        // }
-        // Axios.post('/orders.json',order)
-        // .then(response=>{this.setState({loading :false, purchasing: false})})
-        // .catch(error=>{this.setState({loading :false, purchasing: false})});
+    purchaseContinueHandler=()=> {        
         const queryParams = [];
         for(let i in this.state.ingredients) {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
+        queryParams.push('price=' + this.state.totalPrice);
         const queryString = queryParams.join('&');
         this.props.history.push({
             pathname:'/checkout',
