@@ -1,11 +1,13 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 
 import themes from './NavigationItem.module.css';
-import { classes } from 'istanbul-lib-coverage';
 
 const navigationItem = (props) =>(
     <li className={themes.NavigationItem}>
-        <a href={props.link} className={props.active? classes.active: null}>{props.children}</a>
+        <NavLink to={props.link}
+        exact={props.exact}
+        activeClassName={themes.active}>{props.children}</NavLink>
     </li>
 );
 
